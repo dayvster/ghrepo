@@ -1,5 +1,15 @@
 # ghprofile 🚀
 
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <img src="https://img.shields.io/badge/go-1.21+-00ADD8.svg" alt="Go Version">
+  <img src="https://img.shields.io/github/stars/dayvster/ghrepo?style=social" alt="GitHub stars">
+  <img src="https://img.shields.io/github/downloads/dayvster/ghrepo/total.svg" alt="Downloads">
+  <img src="https://img.shields.io/github/issues/dayvster/ghrepo.svg" alt="Issues">
+  <img src="https://img.shields.io/github/forks/dayvster/ghrepo.svg" alt="Forks">
+  <img src="https://img.shields.io/github/repo-size/dayvster/ghrepo.svg" alt="Repo size">
+</p>
+
 A beautiful, customizable GitHub profile viewer for your terminal.
 
 ---
