@@ -23,6 +23,9 @@ info "Starting release script"
 info "Tag: ${TAG}"
 info "Title: ${TITLE}"
 
+# Trap errors to provide a helpful message
+trap 'error "Release script failed (exit $?)"; exit 1' ERR
+
 # ensure release-bin exists
 mkdir -p release-bin
 

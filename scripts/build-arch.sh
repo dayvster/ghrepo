@@ -14,6 +14,9 @@ success() { echo -e "${GREEN}[build-arch]${RESET} $*"; }
 warn() { echo -e "${YELLOW}[build-arch]${RESET} $*"; }
 error() { echo -e "${RED}[build-arch]${RESET} $*"; }
 
+# On any error, print a helpful message with context
+trap 'error "Build failed for ${OS:-unknown}:${ARCH:-unknown} (exit $? )"; exit 1' ERR
+
 if [ $# -lt 2 ]; then
   echo "Usage: $0 <os> <arch>"
   echo "Example: $0 linux amd64"
@@ -27,11 +30,16 @@ if [ "$OS" = "windows" ]; then
   OUT=${OUT}.exe
 fi
 
-info "Building for OS=${OS} ARCH=${ARCH}"
+info "Starting build for OS=${OS} ARCH=${ARCH}"
 info "Output file: ${OUT}"
 info "Go version: $(go version)"
 info "Running: GOOS=${OS} GOARCH=${ARCH} go build -o ${OUT} ./cmd/main.go"
-GOOS=${OS} GOARCH=${ARCH} go build -o ${OUT} ./cmd/main.go
+if GOOS=${OS} GOARCH=${ARCH} go build -o ${OUT} ./cmd/main.go; then
+  success "Go build completed for ${OS}/${ARCH}"
+else
+  error "Go build failed for ${OS}/${ARCH}"
+  exit 1
+fi
 chmod +x ${OUT} || true
 ls -lh ${OUT} || warn "Could not list output file: ${OUT}"
 success "Build finished: ${OUT}"
