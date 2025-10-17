@@ -30,7 +30,7 @@ trap 'error "Release script failed (exit $?)"; exit 1' ERR
 mkdir -p release-bin
 
 # Build common targets if not present
-for arch in "linux:amd64" "linux:arm64" "darwin:amd64" "darwin:arm64" "windows:amd64"; do
+for arch in "linux:amd64" "linux:arm64" "darwin:amd64" "darwin:arm64" "windows:amd64" "linux:386" "windows:386" "linux:armv7"; do
   OS=${arch%%:*}
   ARCH=${arch##*:}
   OUT=release-bin/ghprofile-${OS}-${ARCH}
@@ -62,6 +62,9 @@ gh release create ${TAG} \
   release-bin/ghprofile-darwin-amd64 \
   release-bin/ghprofile-darwin-arm64 \
   release-bin/ghprofile-windows-amd64.exe \
+  release-bin/ghprofile-linux-386 \
+  release-bin/ghprofile-windows-386.exe \
+  release-bin/ghprofile-linux-armv7 \
   --title "${TITLE}" --notes "${NOTES}"
 
 success "Release ${TAG} created with assets."
