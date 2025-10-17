@@ -17,3 +17,7 @@ Thumbs.db
 
 # Cache
 .cache/
+
+# Release binaries
+release-bin/
+ghprofile-*
