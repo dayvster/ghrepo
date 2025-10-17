@@ -15,24 +15,22 @@ import (
 
 func main() {
 	flag.Usage = func() {
-		fmt.Println(`
-	ghprofile: Pretty GitHub profile viewer
+		fmt.Println(`ghprofile: Pretty GitHub profile viewer
 
-	Usage:
-		ghprofile [flags]
+Usage:
+	ghprofile [flags]
 
-	Flags:
-		-u, --user        GitHub username to fetch (default: dayvster)
-		-n                How many top repos to show (default: 5)
-		--no-icons        Disable icons in the output
-		--no-border       Remove card border from output
-		--no-style        Remove all styles from output
-		--no-demo         Do not fall back to demo data on fetch error; exit instead
-		--demo            Force demo data (skip network and cache)
-		-h, --help        Show this help message
-`)
+Flags:
+	-u, --user        GitHub username to fetch
+	-n                How many top repos to show (default: 5)
+	--no-icons        Disable icons in the output
+	--no-border       Remove card border from output
+	--no-style        Remove all styles from output
+	--no-demo         Do not fall back to demo data on fetch error; exit instead
+	--demo            Force demo data (skip network and cache)
+	-h, --help        Show this help message`)
 	}
-	userLong := flag.String("user", "dayvster", "GitHub username to fetch")
+	userLong := flag.String("user", "", "GitHub username to fetch")
 	userShort := flag.String("u", "", "GitHub username (shorthand)")
 	topN := flag.Int("n", 5, "How many top repos to show")
 	noIcons := flag.Bool("no-icons", false, "Disable icons in the output")
@@ -45,6 +43,13 @@ func main() {
 	user := *userLong
 	if *userShort != "" {
 		user = *userShort
+	}
+
+	// If no user provided and not running in demo mode, require --user
+	if user == "" && !*demo {
+		fmt.Fprintln(os.Stderr, "error: --user is required unless --demo is set")
+		flag.Usage()
+		os.Exit(2)
 	}
 
 	gh := &github.Github{Client: http.DefaultClient}
