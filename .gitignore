@@ -1,0 +1,19 @@
+# Go build
+/bin/
+/ghprofile
+*.exe
+*.out
+*.test
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cache
+.cache/
