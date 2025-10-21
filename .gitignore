@@ -21,3 +21,5 @@ Thumbs.db
 # Release binaries
 release-bin/
 ghprofile-*
+
+packaging/
