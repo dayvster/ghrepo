@@ -38,6 +38,7 @@ Flags:
 	demo := flag.Bool("demo", false, "Force demo data (skip network and cache)")
 	noBorder := flag.Bool("no-border", false, "Remove card border from output")
 	noStyle := flag.Bool("no-style", false, "Remove all styles from output")
+	size := flag.String("size", "medium", "Output size: small, medium, large, full")
 	flag.Parse()
 
 	user := *userLong
@@ -57,7 +58,7 @@ Flags:
 	if *demo {
 		p, repos := github.DemoProfile(github.DemoProfileConfig{Username: user})
 		showIcons := !*noIcons
-		ui.PrintProfile(p, repos, *topN, showIcons, *noBorder, *noStyle)
+		ui.PrintProfile(p, repos, *topN, showIcons, *noBorder, *noStyle, *size)
 		return
 	}
 
@@ -93,5 +94,5 @@ Flags:
 	}
 
 	showIcons := !*noIcons
-	ui.PrintProfile(p, repos, *topN, showIcons, *noBorder, *noStyle)
+	ui.PrintProfile(p, repos, *topN, showIcons, *noBorder, *noStyle, *size)
 }

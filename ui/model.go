@@ -76,13 +76,13 @@ func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m *model) View() string {
 	if m.err != nil {
-		return Panel.Render(fmt.Sprintf("Error: %v", m.err))
+		return Panel(88).Render(fmt.Sprintf("Error: %v", m.err))
 	}
 	if m.loading && m.profile == nil {
-		return Panel.Render(fmt.Sprintf("%s Loading %s", TitleStyle.Render("ghprofile"), m.spinner.View()))
+		return Panel(88).Render(fmt.Sprintf("%s Loading %s", TitleStyle.Render("ghprofile"), m.spinner.View()))
 	}
 	if m.profile == nil {
-		return Panel.Render("No profile")
+		return Panel(88).Render("No profile")
 	}
 	totalStars := 0
 	totalForks := 0
@@ -104,5 +104,5 @@ func (m *model) View() string {
 	out += fmt.Sprintf("%s %d\n", StatStyle.Render("Total forks:"), totalForks)
 	out += fmt.Sprintf("%s %.2f\n", StatStyle.Render("Avg stars/repo:"), avg)
 
-	return Panel.Render(out)
+	return Panel(88).Render(out)
 }

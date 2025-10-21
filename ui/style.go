@@ -10,10 +10,19 @@ var (
 	accentCyan   = lipgloss.Color("#7dcfff")
 	accentBlue   = lipgloss.Color("#7aa2f7")
 	accentPurple = lipgloss.Color("#bb9af7")
+)
 
-	Panel = lipgloss.NewStyle().Padding(1, 2).Border(lipgloss.RoundedBorder()).Width(88).
-		BorderForeground(accentBlue).Foreground(brightFg)
+// Panel returns a lipgloss.Style configured for the card panel.
+// width: if 0 then no width constraint (full width), otherwise sets Width(width).
+func Panel(width int) lipgloss.Style {
+	s := lipgloss.NewStyle().Padding(1, 2).Border(lipgloss.RoundedBorder()).BorderForeground(accentBlue).Foreground(brightFg)
+	if width > 0 {
+		s = s.Width(width)
+	}
+	return s
+}
 
+var (
 	TitleStyle = lipgloss.NewStyle().Bold(true).Foreground(accentCyan)
 
 	URLStyle = lipgloss.NewStyle().Foreground(accentBlue).Underline(true)

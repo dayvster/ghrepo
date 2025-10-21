@@ -10,7 +10,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func PrintProfile(p *github.Profile, repos []github.Repo, topN int, showIcons bool, noBorder bool, noStyle bool) {
+func PrintProfile(p *github.Profile, repos []github.Repo, topN int, showIcons bool, noBorder bool, noStyle bool, size string) {
 	if p == nil {
 		fmt.Println("No profile")
 		return
@@ -130,8 +130,24 @@ func PrintProfile(p *github.Profile, repos []github.Repo, topN int, showIcons bo
 	out := b.String()
 	if noStyle || noBorder {
 		fmt.Print(out)
-	} else {
-		panel := Panel.Render(out)
-		fmt.Println(lipgloss.NewStyle().Margin(1, 2).Render(panel))
+		return
 	}
+
+	// Determine width from size flag. 0 means no width constraint (full).
+	width := 0
+	switch strings.ToLower(size) {
+	case "small":
+		width = 48
+	case "medium":
+		width = 88
+	case "large":
+		width = 120
+	case "full":
+		width = 0
+	default:
+		width = 88
+	}
+
+	panel := Panel(width).Render(out)
+	fmt.Println(lipgloss.NewStyle().Margin(1, 2).Render(panel))
 }
